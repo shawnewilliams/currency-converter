@@ -15,7 +15,7 @@ const getCountries = (currencyCode) => {
 };
 
 const getCurrencies = () => {
-    return axios.get('--https://free.currencyconverterapi.com/api/v5/currencies').then((response) => {
+    return axios.get('https://free.currencyconverterapi.com/api/v5/currencies').then((response) => {
         let data = response.data.results;
         let keys = Object.keys(data).sort();
         for (let item of keys) {
