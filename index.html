@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Currency Converter" content="Currency Converter">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div class="converter-container" id="no-shake">
+        <div>
+            <h1>Currency Converter</h1>
+        </div>
+
+        <div class="converter">
+            <form>
+                <div class="mdl-selectfield">
+                    <label for="select-from">From</label>
+                    <select class="browser-default" name="select-from" id="select-from">
+                        <option value="" disabled selected>Convert From</option>
+                        <option value="USD">US Dollar USD</option>
+                        <option value="AUD">Australian Dollar AUD</option>
+                        <option value="BGN">Bulgarian Lev BGN</option>
+                        <option value="BRL">Brazilian Real BRL</option>
+                        <option value="CAD">Canadian Dollar CAD</option>
+                        <option value="CHF">Swiss Franc CHF</option>
+                        <option value="CNY">Chinese Yuan CNY</option>
+                        <option value="CZK">Czech Koruna CZK</option>
+                        <option value="DKK">Danish Krone DKK</option>
+                        <option value="EUR">Euro EUR</option>
+                        <option value="GBP">British Pound GBP</option>
+                        <option value="HKD">Hong Kong Dollar HKD</option>
+                        <option value="HRK">Croatian Kuna HRK</option>
+                        <option value="HUF">Hungarian Forint HUF</option>
+                        <option value="IDR">Indonesian Rupiah IDR</option>
+                        <option value="ILS">Israeli New Shekel ILS</option>
+                        <option value="INR">Indian Rupee INR</option>
+                        <option value="ISK">Icelandic Króna ISK</option>
+                        <option value="JPY">Japanese Yen JPY</option>
+                        <option value="KRW">South Korean Won KRW</option>
+                        <option value="MXN">Mexican Peso MXN</option>
+                        <option value="MYR">Malaysian Ringgit MYR</option>
+                        <option value="NOK">Norwegian Krone NOK</option>
+                        <option value="NZD">New Zealand Dollar NZD</option>
+                        <option value="PHP">Philippine Piso PHP</option>
+                        <option value="PLN">Polish Złoty PLN</option>
+                        <option value="RON">Romanian Leu RON</option>
+                        <option value="RUB">Russian Ruble RUB</option>
+                        <option value="SEK">Swedish Krona SEK</option>
+                        <option value="SGD">Singapore Dollar SGE</option>
+                        <option value="THB">Thai Baht THB</option>
+                        <option value="TRY">Turkish Lira TRY</option>
+                        <option value="ZAR">South African Rand ZAR</option>
+                    </select>
+                </div>
+                <div class="mdl-selectfield">
+                    <select name="select-to" id="select-to">
+                    <label for="select-to">To</label>
+                        <option value="" disabled selected>Convert To</option>
+                        <option value="USD">US Dollar USD</option>
+                        <option value="AUD">Australian Dollar AUD</option>
+                        <option value="BGN">Bulgarian Lev BGN</option>
+                        <option value="BRL">Brazilian Real BRL</option>
+                        <option value="CAD">Canadian Dollar CAD</option>
+                        <option value="CHF">Swiss Franc CHF</option>
+                        <option value="CNY">Chinese Yuan CNY</option>
+                        <option value="CZK">Czech Koruna CZK</option>
+                        <option value="DKK">Danish Krone DKK</option>
+                        <option value="EUR">Euro EUR</option>
+                        <option value="GBP">British Pound GBP</option>
+                        <option value="HKD">Hong Kong Dollar HKD</option>
+                        <option value="HRK">Croatian Kuna HRK</option>
+                        <option value="HUF">Hungarian Forint HUF</option>
+                        <option value="IDR">Indonesian Rupiah IDR</option>
+                        <option value="ILS">Israeli New Shekel ILS</option>
+                        <option value="INR">Indian Rupee INR</option>
+                        <option value="ISK">Icelandic Króna ISK</option>
+                        <option value="JPY">Japanese Yen JPY</option>
+                        <option value="KRW">South Korean Won KRW</option>
+                        <option value="MXN">Mexican Peso MXN</option>
+                        <option value="MYR">Malaysian Ringgit MYR</option>
+                        <option value="NOK">Norwegian Krone NOK</option>
+                        <option value="NZD">New Zealand Dollar NZD</option>
+                        <option value="PHP">Philippine Piso PHP</option>
+                        <option value="PLN">Polish Złoty PLN</option>
+                        <option value="RON">Romanian Leu RON</option>
+                        <option value="RUB">Russian Ruble RUB</option>
+                        <option value="SEK">Swedish Krona SEK</option>
+                        <option value="SGD">Singapore Dollar SGE</option>
+                        <option value="THB">Thai Baht THB</option>
+                        <option value="TRY">Turkish Lira TRY</option>
+                        <option value="ZAR">South African Rand ZAR</option>
+                    </select>
+                </div>
+                <div class="mdl-input">
+                    <input type="text" name="amount" id="amount" placeholder="Enter Amount">
+                </div>
+                <button id="button">Submit</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="scripts/axios.min.js" type="text/javascript"></script>
+    <script src="scripts/currency-convert.js" type="text/javascript"></script>
+</body>
+</html>

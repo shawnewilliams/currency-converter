@@ -1,0 +1,232 @@
+html {
+  height: 100%;
+}
+
+body {
+  padding: 20px;
+  background-color: black;
+  background-image: url("../assets/money.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: center top; 
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: rgba(31, 120, 2, 0.9);
+}
+
+select, input {
+  font-family: inherit;
+  background-color: transparent;
+  width: 100%;
+  padding: 4px 0;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 0px;
+  margin-bottom: 10px;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color:  rgba(0, 0, 0, 0.5);
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color:  rgba(0, 0, 0, 0.5);
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color:  rgba(0, 0, 0, 0.5);
+}
+:-moz-placeholder { /* Firefox 18- */
+  color:rgb(89, 164, 94);
+}
+
+.red-input::-webkit-input-placeholder {
+    color:  red;
+}
+
+.red-text {
+  color:red;
+}
+
+/* Remove focus */
+select:focus, input:focus, button:focus{
+  outline: none;
+}
+
+select:hover {
+  color: rgba(0, 0, 0, .8);
+}
+
+select.red-text:hover {
+  color:  rgb(193, 4, 4);
+}
+
+input:hover{
+  background-color: rgba(0, 0, 0, .02);
+}
+
+/* Hide label */
+.mdl-selectfield label {
+  display: none;
+}
+
+/* Use custom arrow */
+.mdl-selectfield select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+
+.mdl-selectfield {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  position: relative;
+}
+.mdl-selectfield:after {
+  position: absolute;
+  top: 0.75em;
+  right: 0.5em;
+  /* Styling the down arrow */
+  width: 0;
+  height: 0;
+  padding: 0;
+  content: "";
+  border-left: 0.25em solid transparent;
+  border-right: 0.25em solid transparent;
+  border-top: 0.375em solid rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.mdl-selectfield:hover:after {
+  border-top: 0.375em solid rgba(0, 0, 0, 0.8);
+}
+
+button {
+  font-family: inherit;
+  background-color: transparent;
+  width: 100%;
+  padding: 4px 0;
+  font-size: 16px;
+  color: rgba(31, 120, 2, 0.7);
+  border: none;
+  border-radius: 0px;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.36);
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.07);
+}
+
+button:active {
+  transform: translateY(4px);
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.26);
+}
+
+div.converter-container {
+  margin: 0 auto;
+  background-color: white;
+  width: 50%;
+  padding: 15px 0 50px 0;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.36);
+  border-radius: 2px;
+}
+
+div.converter {
+  margin: 0 auto;
+  width: 75%;
+}
+
+#warning {
+  background-color: rgba(120, 2, 2, 0.8);
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 2px;
+  position: relative;
+  animation-name: enter;
+  animation-duration: .25s;
+}
+
+#warning-exit {
+  background-color: rgba(120, 2, 2, 0.8);
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 2px;
+  position: relative;
+  animation-name: exit;
+  animation-duration: .25s;
+}
+
+#result {
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  color:rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.36);
+  border-radius: 2px;
+  position: relative;
+  animation-name: enter;
+  animation-duration: .25s;
+}
+
+#result-exit {
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+  color:rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.36);
+  border-radius: 2px;
+  position: relative;
+  animation-name: exit;
+  animation-duration: .25s;
+}
+
+#shake {
+  position: relative;
+  animation-name: shake;
+  animation-duration: .25s;
+}
+
+@media (max-width: 900px) {
+  div.converter-container {
+    width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  div.converter-container {
+    width: 100%;
+  }
+}
+
+@keyframes enter {
+  0%   {left:-2000px;}
+  100% {left:0px;}
+}
+
+@keyframes exit {
+  0%   {left:0px;}
+  100% {left:2000px;}
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 50%, 90% {
+    transform: rotate(3deg);
+  }
+  30%, 70% {
+    transform: rotate(-3deg);
+  }
+}
