@@ -1,21 +1,53 @@
-const getExchangeRate = (from, to) => {
-    return axios.get(`https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=y`).then((response) => {
+const getExchangeRate = async (from, to) => {
+    try {
+        const response = await axios.get(`https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=y`);
         return response.data[`${from}_${to}`].val;
-    }).catch((e) => console.log(e));
+    } catch (e) {
+        throw new Error (`Unable to get exchange rate for ${from} and ${to}`)
+    }
+    
 };
 
-const getCountries = (currencyCode) => {
-    return axios.get(`https://restcountries.eu/rest/v2/currency/${currencyCode}`).then((response) => {
+// const getCountries = (currencyCode) => {
+//     return axios.get(`https://restcountries.eu/rest/v2/currency/${currencyCode}`).then((response) => {
+//         let index = response.data[0].currencies.findIndex(item => item.code === currencyCode);
+//         return ({
+//             currency: response.data[0].currencies[index].name,
+//             countries: response.data.map((country) => country.name)
+//         })
+//     }).catch((e) => console.log(e));
+// };
+
+const getCountries = async (currencyCode) => {
+    try {
+        const response = await axios.get(`https://restcountries.eu/rest/v2/currency/${currencyCode}`);
         let index = response.data[0].currencies.findIndex(item => item.code === currencyCode);
         return ({
             currency: response.data[0].currencies[index].name,
             countries: response.data.map((country) => country.name)
-        })
-    }).catch((e) => console.log(e));
+    });
+
+    } catch(e) {
+        throw new Error (`Unable to get countries with currency code ${currencyCode}`)
+    }
+    
 };
 
-const getCurrencies = () => {
-    return axios.get('https://free.currencyconverterapi.com/api/v5/currencies').then((response) => {
+// const getCurrencies = () => {
+//     return axios.get('https://free.currencyconverterapi.com/api/v5/currencies').then((response) => {
+//         let data = response.data.results;
+//         let keys = Object.keys(data).sort();
+//         for (let item of keys) {
+//             addSelectOption(`${data[item].id} - ${data[item].currencyName}`, data[item].id, "select-from");
+//             addSelectOption(`${data[item].id} - ${data[item].currencyName}`, data[item].id, "select-to");
+//         }
+//         return data;
+//     }).catch((e) => console.log(e));
+// };
+
+const getCurrencies = async () => {
+    try {
+        const response = await axios.get('--https://free.currencyconverterapi.com/api/v5/currencies');
         let data = response.data.results;
         let keys = Object.keys(data).sort();
         for (let item of keys) {
@@ -23,7 +55,9 @@ const getCurrencies = () => {
             addSelectOption(`${data[item].id} - ${data[item].currencyName}`, data[item].id, "select-to");
         }
         return data;
-    }).catch((e) => console.log(e));
+    } catch (e) {
+        throw new Error ('Unable to get currencies');
+    }
 };
 
 const addSelectOption = (text, value, selectID) => {
@@ -50,7 +84,8 @@ const convertCurrency = async (from, to, amount) => {
     return ({
         amount: `${amount} ${from} is worth ${exchangedAmount} ${to}`,
         currency: `The ${countries.currency} can be used in the following countries:`,
-        countries: `${countries.countries.join(', ')}`})
+        countries: `${countries.countries.join(', ')}`
+    });
 };
 
 let getData = () => {
@@ -63,26 +98,26 @@ let getData = () => {
         
         changeElementID('warning', 'warning-exit');
         changeElementID('result', 'result-exit');
+        removeElement('warning-exit', 50);
+        removeElement('result-exit', 50);
         
         let from = document.querySelector("#select-from").value;
         let to = document.querySelector("#select-to").value;
         let amount = parseInt(document.querySelector("#amount").value);
         let hasError = dataError(from, to, amount)
-        setTimeout(() => {
-            removeElement('result-exit');
-            removeElement('warning-exit');
-            if (hasError === false) {
-                convertCurrency(from, to, amount).then((result) => {
-                    let newDiv = document.createElement("div");
-                    newDiv.id = 'result';
-                    // add the text node to the newly created div
-                    addParagraph(newDiv, result.amount);
-                    addParagraph(newDiv, result.currency);
-                    addParagraph(newDiv, result.countries); 
-                    document.body.appendChild(newDiv);
-                });
-            }
-        },50); 
+        
+        if (hasError === false) {
+            convertCurrency(from, to, amount).then((result) => {
+                let newDiv = document.createElement("div");
+                newDiv.id = 'result';
+                addParagraph(newDiv, result.amount);
+                addParagraph(newDiv, result.currency);
+                addParagraph(newDiv, result.countries); 
+                document.body.appendChild(newDiv);
+            });
+        } else {
+            warning(hasError);
+        }
     });
 };
 
@@ -93,10 +128,12 @@ let addParagraph = (parent, text) => {
     parent.appendChild(para);
 };
 
-let removeElement = (elementID) => {
-    if(document.querySelector(`#${elementID}`)) {
-        document.querySelector(`#${elementID}`).parentNode.removeChild(document.querySelector(`#${elementID}`));
-    }
+let removeElement = (elementID, delay = 0) => {
+    setTimeout(() => {
+        if(document.querySelector(`#${elementID}`)) {
+            document.querySelector(`#${elementID}`).parentNode.removeChild(document.querySelector(`#${elementID}`));
+        }
+    }, delay); 
 };
 
 let changeElementID = (id, newId) => {
@@ -108,14 +145,11 @@ let changeElementID = (id, newId) => {
 };
 
 let warning = (message)=> {
-    setTimeout(() => {
-        removeElement('warning-exit')
-        let newDiv = document.createElement("div");
-        newDiv.id = 'warning';
-        let textNode = document.createTextNode(message)
-        newDiv.appendChild(textNode);  
-        document.body.appendChild(newDiv);
-    }, 100);
+    let newDiv = document.createElement("div");
+    newDiv.id = 'warning';
+    let textNode = document.createTextNode(message)
+    newDiv.appendChild(textNode);  
+    document.body.appendChild(newDiv);
 };
 
 let shake = () => {
@@ -129,10 +163,10 @@ let dataError = (from, to, amount) => {
     document.querySelector('#select-from').classList.add("red-text");
     document.querySelector('#select-to').classList.add("red-text");
     document.querySelector('#amount').classList.add("red-input");
-    if (from) {
+    if (from && from !== to) {
         document.querySelector('#select-from').classList.remove("red-text");
     }
-    if (to) {
+    if (to && from !== to) {
         document.querySelector('#select-to').classList.remove("red-text");
     }
     if (amount) {
@@ -141,35 +175,19 @@ let dataError = (from, to, amount) => {
     if (!amount) {
         document.querySelector('#amount').value = '';
     }
-    if (!from) {
+    if (!from || !to) {
         shake();
-        setTimeout(()=> {
-            removeElement('result-exit');
-        },250);
-        return warning('Please enter a type of currency.');
-    } else if (!to) {
-        shake();
-        setTimeout(()=> {
-            removeElement('result-exit');
-        },250);
-        return warning('Please enter a type of currency.');
+        return 'Please enter a type of currency.';
     } else if (from === to) {
         shake();
-        setTimeout(()=> {
-            removeElement('result-exit');
-        },50);
-        return warning('You cannot convert to the same type of currency.');
+        return 'You cannot convert to the same type of currency.';
     } else if (!amount) {
         shake();
-        setTimeout(()=> {
-            removeElement('result-exit');
-        },50);
-        return warning('Please enter an amount');
+        return 'Please enter an amount';
     } else {
         return false
     }
-    
 };
 
-getCurrencies();
-getData();
+getCurrencies().catch((e) => console.log(e));
+getData()
