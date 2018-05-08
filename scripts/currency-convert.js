@@ -47,7 +47,7 @@ const getCountries = async (currencyCode) => {
 
 const getCurrencies = async () => {
     try {
-        const response = await axios.get('--https://free.currencyconverterapi.com/api/v5/currencies');
+        const response = await axios.get('https://free.currencyconverterapi.com/api/v5/currencies');
         let data = response.data.results;
         let keys = Object.keys(data).sort();
         for (let item of keys) {
