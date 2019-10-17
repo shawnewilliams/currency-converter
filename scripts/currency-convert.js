@@ -1,6 +1,6 @@
 const getExchangeRate = async (from, to) => {
     try {
-        const response = await axios.get(`https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=y`);
+        const response = await axios.get(`https://free.currencyconverterapi.com/api/v5/convert?q=${from}_${to}&compact=y&apiKey=39dd7ebe2b7075bcb4d4`);
         return response.data[`${from}_${to}`].val;
     } catch (e) {
         throw new Error (`Unable to get exchange rate for ${from} and ${to}`)
@@ -30,7 +30,6 @@ const getCountries = async (currencyCode) => {
     } catch(e) {
         throw new Error (`Unable to get countries with currency code ${currencyCode}`)
     }
-    
 };
 
 // const getCurrencies = () => {
@@ -47,7 +46,7 @@ const getCountries = async (currencyCode) => {
 
 const getCurrencies = async () => {
     try {
-        const response = await axios.get('https://free.currencyconverterapi.com/api/v5/currencies');
+        const response = await axios.get('https://free.currencyconverterapi.com/api/v5/currencies?apiKey=39dd7ebe2b7075bcb4d4');
         let data = response.data.results;
         let keys = Object.keys(data).sort();
         for (let item of keys) {
